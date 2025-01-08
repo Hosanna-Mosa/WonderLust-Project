@@ -29,13 +29,13 @@ const validatereview = (req,res,next) =>{
 
 //-------------------------------- Review Post Route-------------------------------------
 
-router.post("/:id/review", validatereview, wrapAsync(reviewController.post));
+router.post("/", validatereview, wrapAsync(reviewController.post));
 
 
 
 //-------------------------------- Review Delete Route-------------------------------------
 
-router.delete("/:id/reviews/:reviewId" ,isLoggedIn,isAuthor, wrapAsync( reviewController.destroy));
+router.delete("/:reviewId" ,isLoggedIn,isAuthor, wrapAsync( reviewController.destroy));
 
 
 module.exports = router;
