@@ -126,9 +126,11 @@ app.use("/",userRoute);
 
 
 //------------------------------Default Route-----------------------------------------
+
 app.get("/" , (req,res) =>{
-    res.send("i am root");
+    res.redirect('/listings');
 });
+
 
 
 app.all("*" , (req,res,next)=>{
