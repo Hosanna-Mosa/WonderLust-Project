@@ -52,7 +52,7 @@ module.exports.logout = (req,res) =>{
         if(err){
             return next(err);
         }
-        req.flash("sucess","Your are SucessFully Logoutted");
+        req.flash("sucess","Your are SucessFully Logout");
         res.redirect("/listings");
     })
 }

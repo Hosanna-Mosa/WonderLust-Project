@@ -18,13 +18,15 @@ const listingsRoute = require("./routes/listing");
 const reviewsRoute = require("./routes/review");
 const userRoute = require("./routes/users");
 const session = require("express-session");
+var MongoStore = require('connect-mongo');
 const flash = require("connect-flash");
 const passport = require("passport");
 const localStrategy = require("passport-local");
 const User = require("./models/user");
+const { error } = require('console');
  
 
-const dbUrl = process.env.ATLASDB_URL;
+dbUrl = process.env.ATLASDB_URL;
 
 
 
@@ -51,8 +53,22 @@ app.engine('ejs', engine);
 app.use(express.static(path.join(__dirname,"/public")));
 
 
+const store = MongoStore.create({
+    mongoUrl : dbUrl,
+    crypto : {
+        secret : process.env.SECRET,
+    },
+    touchAfter : 24 * 3600,
+});
+
+store.on("error" , () =>{
+    console.log("Erro in Mongo Session Store",err);
+    
+});
+
 const sessionOpions = {
-    secret : "mySecret",
+    store,
+    secret : process.env.SECRET,
     resave : false,
     saveUninitialized: true,
     cookie : {
@@ -112,11 +128,6 @@ app.use("/",userRoute);
 //------------------------------Default Route-----------------------------------------
 app.all("*" , (req,res,next)=>{
     next(new ExpressError(404,"Page Not Found"));
-});
-
-
-app.get("/" , (req,res)=>{
-    res.send("I am  Root");
 });
 
 

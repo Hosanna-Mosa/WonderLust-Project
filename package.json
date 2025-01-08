@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "23.1.0"
+  },
   "name": "major-peoject-1",
   "version": "1.0.0",
   "main": "index.js",
@@ -13,6 +16,8 @@
     "axios": "^1.7.9",
     "cloudinary": "^1.21.0",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^5.1.0",
+    "connect-mongodb-session": "^5.0.0",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
     "ejs-mate": "^4.0.0",

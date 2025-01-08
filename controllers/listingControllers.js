@@ -3,7 +3,7 @@ const Listing = require("../models/listing");
 const Review = require("../models/review");
 const axios = require('axios');
 
-// const LOCATIONIQ_API_KEY = 'pk.eb0706575225f618dc907f6eac46625e';
+
 //----------------------------------Index Route---------------------------------
 
 module.exports.index = async (req,res) =>{
@@ -62,22 +62,25 @@ module.exports.show = async (req,res) =>{
         if (data.length > 0) {
 
           const coordinates = data[0];
-          res.locals.lat = coordinates.lat;
-          res.locals.lon = coordinates.lon;  
-          
+          let lat = coordinates.lat;
+          let lon = coordinates.lon;  
+            
+
+          res.render("listings/showe.ejs",{dataOfId , lat , lon});
         } else{
-            res.locals.lat = null;
-            res.locals.lon = null;
+             res.render("listings/showe.ejs",{dataOfId , lat : null , lon : null});
         }
       } catch (error) {
-        req.flash("error","Can't Find Map");
-         
+        
+        let lat = null;
+        let lon = null;
+        res.render("listings/showe.ejs",{dataOfId , lat , lon});
       }
     
       
       
 
-      res.render("listings/showe.ejs",{dataOfId});
+      
     
 }
 

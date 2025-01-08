@@ -94,9 +94,13 @@
       <p><%= dataOfId.location%>,<%=  dataOfId.country%></p>
       <div id="map"></div>
       <p id="latCo" style="display: none;">
-       <%= lat %>
+        <% if(lat) {%>
+          <%= lat %>
+        <% } %>
       </p>
-      <p id="lonCo" style="display: none;"> <%= lon%> </p>
+      <p id="lonCo" style="display: none;"> <% if(lon) {%>
+        <%= lon %>
+      <% } %> </p>
       <p id="location" style="display: none;"> <%= dataOfId.title %> </p>
     </div>
       <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -107,20 +111,26 @@
     const lonCo = document.getElementById("lonCo");
     const locationValue = document.getElementById("location");
   
-    
-    const map = L.map('map').setView([(Number(latCo.innerText)), (Number(lonCo.innerText))], 13); // Coordinates for London
-        
-      
-        
-        
-        // Add OpenStreetMap tiles
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    if((Number(latCo.innerText)) && (Number(lonCo.innerText)) ){
+      const map = L.map('map').setView([(Number(latCo.innerText)), (Number(lonCo.innerText))], 13);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: '© OpenStreetMap contributors',
         }).addTo(map);
 
         // Add a marker
         const marker = L.marker([(Number(latCo.innerText)), (Number(lonCo.innerText))]).addTo(map);
         marker.bindPopup(`<b>${locationValue.innerText}</b><br>Exact Location will be here..`).openPopup();
+    }else{
+      let map = document.getElementById("map");
+      map.innerText = "Can't Find Map For this Place....";
+    }
+    // Coordinates for London
+        
+      
+        
+        
+        // Add OpenStreetMap tiles
+        
       
       </script>
 </body>
