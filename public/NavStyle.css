@@ -1,0 +1,41 @@
+.navbar-brand{
+    width: 5rems !important;
+    display: flex;
+    color: #FF385C;
+}
+
+.navbar{
+    height: 5rem !important;
+}
+
+.navbar-brand p {
+    padding-top: 1rem;
+    font-weight: 700;
+}
+
+.navbar-brand i{
+    padding-top: 1rem;
+    font-size: 2.2rem;
+    padding-right: 0.2rem;
+    /* padding-bottom: 0.9rem; */
+}
+
+/* @media(max-width:1050px){
+    .navbar-brand p {
+        display: none;
+    }
+    .navbar-brand i{
+        padding-bottom: 1rem;
+    }
+} */
+
+/* @media(max-width:430px){
+    .navbar-brand i {
+        display: none;
+    }
+} */
+
+.collapse{
+    background-color: white;
+    /* opacity: 0.8; */
+}

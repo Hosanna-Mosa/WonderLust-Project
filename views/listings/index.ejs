@@ -1,0 +1,28 @@
+<% layout("layouts/boilerPlate.ejs") %>
+<body>
+    
+   
+    <!-- <form action="/listing/new" method="get">
+        <button type="submit">New List</button>
+    </form> -->
+    <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-xs-2">
+        <% for(data of dataBs){  %>
+            <a href="/listings/<%= data._id %>" class="card-effect">
+                <div class="card listing-card" >
+                    <img src="<%= data.image.url %>" class="card-img-top" alt="listing-image" style="height: 19rem;">
+                    <div class="card-img-overlay"></div>
+                    <div class="card-body" style="height: 5rem;">
+                      <p class="card-text index-text"><%= data.title %></p>
+                      <p>&#8377; <%= data.price.toLocaleString("en-IN") %> /night</p>
+      
+                    </div>
+                  </div>
+            </a>
+            
+            <% } %>
+    </div>
+</body>
+
+    
+
+

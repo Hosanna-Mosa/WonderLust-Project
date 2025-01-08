@@ -1,0 +1,24 @@
+<% layout("layouts/boilerPlate.ejs") %>
+<div class="row">
+    <div class="col-6 offset-3">
+        <h3>SingUp For WonderLust</h3>
+        <form method="post" class="needs-validation" action="/singup" novalidate>
+        <div class="mb-3">
+            <label for="username" class="form-label"></label>
+            <input name="username" placeholder="Enter username" type="text" class="form-control" required>
+            <div class="invalid-feedback">Please enter the username</div>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label"></label>
+            <input name="email" placeholder="Enter email" type="email" class="form-control" required>
+            <div class="invalid-feedback">Please enter the email</div>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label"></label>
+            <input name="password" placeholder="Enter password" type="password" class="form-control" required>
+            <div class="invalid-feedback">Please enter the password</div>
+        </div>
+        <button class="btn btn-dark add-btn" type="submit">SingUp</button>
+    </form>
+    </div>
+</div>

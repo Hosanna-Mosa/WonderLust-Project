@@ -1,0 +1,77 @@
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container{
+    flex: 1;
+}
+
+.listing-card{
+    border: none !important;
+}
+
+.card-img-top{
+    width: 100%;
+    border-radius: 0.8rem !important;
+    object-fit: cover !important;
+}
+
+.card-body{
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+
+.index-text{
+    margin: 0 !important;
+    font-weight: 700;
+}
+
+.card-effect{
+    text-decoration: none;
+}
+
+.card-img-overlay{
+    opacity: 0 !important;
+}
+
+.card-img-overlay:hover{
+    opacity: 0.3 !important;
+    background-color: white !important;
+}
+
+/* New-Page */
+
+.add-btn{
+    background-color: #FF385C !important;
+}
+
+/* Edit-Page */
+.edit-btn{
+    background-color: #FF385C !important;
+}
+
+.show-img{
+    height: 30vh;
+}
+
+.btns-show{
+    display: flex;
+}
+
+.edit-show{
+    background-color: #FF385C !important;
+}
+
+/* .edit-show{
+    min-width: 100px;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+} */
+
+#map {
+    height: 300px;
+    width: 100%;
+  }
