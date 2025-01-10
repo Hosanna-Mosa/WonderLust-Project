@@ -22,11 +22,13 @@ var MongoStore = require('connect-mongo');
 const flash = require("connect-flash");
 const passport = require("passport");
 const localStrategy = require("passport-local");
-const User = require("./models/user");
+const User = require("./models/user"); 
 const { error } = require('console');
  
 
 dbUrl = process.env.ATLASDB_URL;
+
+
 
 
 

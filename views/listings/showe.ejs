@@ -1,6 +1,6 @@
 <% layout("layouts/boilerPlate.ejs") %>
 <body>
-    <div class="row col-6 offset-3">
+    <div class="row col-lg-8 row-cols-md-7 offset-md-1 offset-md-2 offset-lg-2">
     <h3>Listing Details :</h3>
     <!-- </div> -->
     <!-- <div class="row col-8 offset-2"> -->
@@ -30,7 +30,8 @@
     </div>
     
     <% if(currRes) { %>
-    <div class="row col-6 offset-3 mt-3" >
+    <div class="row col-lg-8 row-cols-md-7 offset-md-1 offset-md-2 offset-lg-2  mt-3" >
+      <!-- //col-6 offset-3 -->
       <hr>
       <h4>Leave a Review</h4>
       <p class="mb-0">Give the Stars :</p>
@@ -65,13 +66,14 @@
 
     <% } %>
 
-    <div class="row col-6 offset-3 mt-3" >
+    <div class="row col-lg-8 row-cols-md-7 offset-md-1 offset-md-2 offset-lg-2 mt-3" >
+      <!-- col-6 offset-3 -->
       <hr class="mt-2">
       <h4 >All Reviews</h4>
       
         <div class="row">
         <% for (review of dataOfId.reviews ) {%>
-           <div class="card mb-3 col-6 ml-2" style="width: 18rem; margin-right: 10px;">
+           <div class="card mb-3 col-6 ml-2" style="width: 16rem; margin-right: 10px;">
       <div class="card-body">
         <h5 class="card-title"> @<%= review.author.username %></h5>
         
@@ -87,7 +89,7 @@
         <% } %>
         </div>
       </div>
-      <div class="row col-6 offset-3" >
+      <div class="row col-lg-8 row-cols-md-7 offset-md-1 offset-md-2 offset-lg-2 mt-3" >
 
       
       <h1>Where you’ll be</h1>

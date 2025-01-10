@@ -29,13 +29,33 @@
     }
 } */
 
-/* @media(max-width:430px){
-    .navbar-brand i {
+@media(max-width:767px){
+    .overall-search-btn{
         display: none;
     }
-} */
+}
 
 .collapse{
     background-color: white;
+    
     /* opacity: 0.8; */
 }
+
+.btn-search i{
+      display: inline;
+      margin-right: 0.4rem;
+    }
+
+    .btn-search{
+      background-color: #FF385C;
+      color: #fff;
+      border-radius: 1.5rem;
+    }
+    .btn-search:hover{
+      background-color: #FF385C;
+      color: #fff;
+    }
+
+    .btn-input{
+      border-radius: 1.5rem;
+    }

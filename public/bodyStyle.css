@@ -6,7 +6,15 @@ body{
 
 .container{
     flex: 1;
+    margin: auto !important;
 }
+
+.new-list-title{
+    
+}
+
+
+
 
 .listing-card{
     border: none !important;
@@ -73,5 +81,12 @@ body{
 
 #map {
     height: 300px;
-    width: 100%;
+    
   }
+
+  @media(max-width:595px){
+    #map{
+        width: 90%;
+    margin: auto !important;
+    }
+}
