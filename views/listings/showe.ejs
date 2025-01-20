@@ -1,7 +1,7 @@
 <% layout("layouts/boilerPlate.ejs") %>
 <body>
     <div class="row col-lg-8 row-cols-md-7 offset-md-1 offset-md-2 offset-lg-2">
-    <h3>Listing Details :</h3>
+    <h3><b><%= dataOfId.title %> <br></b></h3>
     <!-- </div> -->
     <!-- <div class="row col-8 offset-2"> -->
     <div class="card listing-card">
@@ -11,20 +11,32 @@
             <b>owned by</b> @<%= dataOfId.owner.username %>
             <!-- <%= dataOfId.reviews.author %> -->
             <br>
-            <b><%= dataOfId.title %> <br></b>
+            
             <%= dataOfId.description %> <br>
-            &#8377; <%= dataOfId.price.toLocaleString("en-IN") %> <br>
-            <%= dataOfId.location %> <br>
-            <%= dataOfId.country %>
+            Price : &#8377; <%= dataOfId.price.toLocaleString("en-IN") %> 
+            <br>
+            <%= dataOfId.country %> , <%= dataOfId.location %> 
         </p>
         </div>
       </div>
         <% if(currRes && currRes._id.equals(dataOfId.owner._id)) {%>
-        <div class="btns-show">
+        <div class="btns-show mt-3">
             <a href="/listings/<%= dataOfId._id %>/edit" class="btn btn-dark edit-show">Edit</a>
+
         <form action="/listings/<%= dataOfId._id %>?_method=DELETE" method="post">
         <button class="btn btn-dark offset-4">Delete</button>
         </form>
+
+        <form action="/listings/<%= dataOfId._id %>/book" method="get" >
+          <button class="btn btn-success  ms-5">Book now</button>
+        </form>
+        </div>
+        <% } else { %>
+        <div class="btns-show">
+          <form action="/listings/<%= dataOfId._id %>/book" method="get" >
+            <button class="btn btn-success mt-3">Book now</button>
+          </form>
+          
         </div>
         <% } %>
     </div>
@@ -66,12 +78,13 @@
 
     <% } %>
 
+    <% if(dataOfId.reviews != 0) { %>
     <div class="row col-lg-8 row-cols-md-7 offset-md-1 offset-md-2 offset-lg-2 mt-3" >
       <!-- col-6 offset-3 -->
       <hr class="mt-2">
       <h4 >All Reviews</h4>
       
-        <div class="row">
+      <div class="row">
         <% for (review of dataOfId.reviews ) {%>
            <div class="card mb-3 col-6 ml-2" style="width: 16rem; margin-right: 10px;">
       <div class="card-body">
@@ -89,6 +102,9 @@
         <% } %>
         </div>
       </div>
+      <% } %>
+
+
       <div class="row col-lg-8 row-cols-md-7 offset-md-1 offset-md-2 offset-lg-2 mt-3" >
 
       

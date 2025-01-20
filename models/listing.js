@@ -9,8 +9,14 @@ const listing = new Schema({
     },
     description : String,
     image : {
-        url : String,
-        filename : String
+        url : {
+            type : String,
+            default : "https://res.cloudinary.com/dk6rrrwum/image/upload/v1736336224/WonderLust/wm2eiwxq42cwfbpljpze.jpg",
+        },
+        filename :{
+            type : String,
+            default : "default-img"
+        }
     },
     price : {
         type : Number,

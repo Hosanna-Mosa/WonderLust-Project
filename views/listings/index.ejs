@@ -5,10 +5,10 @@
     <!-- <form action="/listing/new" method="get">
         <button type="submit">New List</button>
     </form> -->
-    <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-xs-2">
+    <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-xs-2">
         <% for(data of dataBs){  %>
             <a href="/listings/<%= data._id %>" class="card-effect">
-                <div class="card listing-card" >
+                <div class="card listing-card card-style mt-3" >
                     <img src="<%= data.image.url %>" class="card-img-top" alt="listing-image" style="height: 19rem;">
                     <div class="card-img-overlay"></div>
                     <div class="card-body" style="height: 5rem;">

@@ -36,11 +36,24 @@ const validatelisting = (req,res,next) =>{
 
 router.get("/" , wrapAsync(listingController.index));
 
+//-------------------------------- Search Route-------------------------------------
+
+router.get('/search', wrapAsync(listingController.searching));
+
 //------------------------------- New Route---------------------------------------
 
 router.get("/new" ,isLoggedIn, listingController.newForm);
 
 router.post("/new" ,isLoggedIn,upload.single('listing[image]') ,validatelisting,wrapAsync( listingController.new));
+
+//-------------------------------- Booking Route-------------------------------------
+
+
+router.get('/:id/book',isLoggedIn, wrapAsync(listingController.BookingListing));
+
+//-------------------------------- Booked Route-------------------------------------
+
+router.post('/:id/book',isLoggedIn, wrapAsync(listingController.BookedListing));
 
 //-------------------------------- Read Route(show)-------------------------------
 
@@ -58,5 +71,17 @@ router.put("/:id",upload.single('listing[image]') ,validatelisting,wrapAsync(lis
 //-------------------------------- Delete Route-------------------------------------
 
 router.delete("/:id" , isLoggedIn , isOwner ,wrapAsync(listingController.destroy ));
+
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = router;

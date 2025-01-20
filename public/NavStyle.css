@@ -29,14 +29,15 @@
     }
 } */
 
-@media(max-width:767px){
+/* @media(max-width:767px){
     .overall-search-btn{
         display: none;
     }
-}
+} */
 
 .collapse{
-    background-color: white;
+    background-color: #fff;
+    
     
     /* opacity: 0.8; */
 }

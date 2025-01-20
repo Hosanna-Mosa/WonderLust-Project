@@ -1,0 +1,29 @@
+<% layout('/layouts/boilerplate') %>
+      <div class="container">
+            <% if(allListings != 0) {%>
+            <h1 class="my-4">Search Results for "<%= query %>"</h1>
+            <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+                  <% for(let listing of allListings) {%>
+                        <a href="/listings/<%= listing._id %>" class="listing-link ">
+                              <div class="card col listing-card card-style mt-3">
+                                    <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image"
+                                          style="height: 18rem">
+                                    <div class="card-img-overlay mt-3"></div>
+                                    <div class="card-body">
+                                          <p class="card-text">
+                                                <b>
+                                                      <%= listing.title %>
+                                                </b><br>
+                                                <%= listing.formattedPrice %>
+                                                     
+                                          </p>
+                                    </div>
+                              </div>
+                        </a>
+                  <% } %>
+            </div>
+            <hr>
+            <% } else { %>
+                <h1 class="my-4">Not Found For Search Results for "<%= query %>"</h1>
+            <% } %>
+      </div>

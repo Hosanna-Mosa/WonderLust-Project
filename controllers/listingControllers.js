@@ -2,6 +2,7 @@ const { model } = require("mongoose");
 const Listing = require("../models/listing");
 const Review = require("../models/review");
 const axios = require('axios');
+const Booking = require('../models/booking');
 
 
 //----------------------------------Index Route---------------------------------
@@ -26,6 +27,7 @@ module.exports.new = async (req,res)=>{
     
     let path = req.file.path;
     let filename = req.file.filename;
+
 
     
     const newData = new Listing(req.body.listing);
@@ -137,3 +139,86 @@ module.exports.destroy = async (req,res) =>{
     req.flash('sucess', 'List Deleted!');
     res.redirect("/listings");
 }
+
+//-------------------------------- Search Route-------------------------------------
+
+module.exports.searching = async (req ,res) => {
+    let { query } = req.query;
+    query = query.trim();
+    try {
+        const allListings = await Listing.find({
+              $or: [
+                    { title: { $regex: query, $options: 'i' } },
+                    { location: { $regex: query, $options: 'i' } },
+                    { country: { $regex: query, $options: 'i' } },
+              ]
+        });
+        allListings.forEach(listing => {
+              listing.formattedPrice = listing.price.toLocaleString('en-IN', { style: 'currency', currency: 'INR' });
+        });
+        res.render("listings/search.ejs" , {allListings , query});
+  } catch (err) {
+        console.error("Error in search:", err);
+        res.status(500).send('Server Error');
+  }
+};
+
+//-------------------------------- Booking Route-------------------------------------
+
+module.exports.BookingListing = async (req, res) => {
+    const { id } = req.params;
+    const listing = await Listing.findById(id);
+    res.render('listings/booking', { listing, bookingConfirmed: false });
+};
+
+//-------------------------------- Booked Route-------------------------------------
+
+module.exports.BookedListing = async (req, res) => {
+    const { checkInDate, checkOutDate, numberOfGuests, paymentMethod } = req.body;
+    const listingId = req.params.id;
+    const userId = req.user ? req.user._id : null;
+    const listing = await Listing.findById(listingId);
+    const checkIn = new Date(checkInDate);
+    const checkOut = new Date(checkOutDate);
+    if (checkIn >= checkOut) {
+          req.flash("error", `Check-out date must be after check-in date.`);
+          return res.render('listings/booking', { listing, bookingConfirmed: false });
+    }
+    function calculateTotalPrice(checkIn, checkOut, numberOfGuests) {
+          const dailyRate = listing.price;
+          const timeDifference = checkOut - checkIn;
+          const days = Math.ceil(timeDifference / (1000 * 3600 * 24));
+          return (dailyRate *(18/100)) * days * numberOfGuests;
+    }
+    const existingBooking = await Booking.findOne({listingId,$or: [
+                { checkInDate: { $lt: checkOut, $gte: checkIn } },
+                { checkOutDate: { $gt: checkIn, $lte: checkOut } },
+                { checkInDate: { $lte: checkIn }, checkOutDate: { $gte: checkOut } }
+          ]
+    });
+    if (existingBooking) {
+          req.flash("error", `This listing is already booked from ${existingBooking.checkInDate.toDateString()} to ${existingBooking.checkOutDate.toDateString()}. Please choose dates after ${existingBooking.checkOutDate.toDateString()}.`);
+          return res.render('listings/booking', { listing, bookingConfirmed: false });
+    }
+    const booking = new Booking({
+          listingId,
+          userId,
+          checkInDate: checkIn,
+          checkOutDate: checkOut,
+          numberOfGuests,
+          paymentMethod,
+          totalPrice: calculateTotalPrice(checkIn, checkOut, numberOfGuests)
+    });
+    await booking.save();
+    const confirmationData = {
+          listing: {
+                title: listing.title
+          },
+          checkInDate: booking.checkInDate.toISOString().split('T')[0],
+          checkOutDate: booking.checkOutDate.toISOString().split('T')[0],
+          numberOfGuests: booking.numberOfGuests,
+          paymentMethod: booking.paymentMethod,
+          totalPrice: booking.totalPrice
+    };
+    res.render('listings/booked', confirmationData);
+};
